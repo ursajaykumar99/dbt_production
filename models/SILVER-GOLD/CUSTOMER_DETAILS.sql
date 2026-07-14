@@ -1,1 +1,0 @@
-select * from {{ ref('CUS_CUSTOMER') }}

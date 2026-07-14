@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: STG_CUS_CUSTOMER
+    description: "Customer Staging table in landing layer"
+    columns:
+      - name: C_CUSTKEY
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null

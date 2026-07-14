@@ -1,8 +1,7 @@
-
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: 'Edw_Snowflake_Production'
+name: 'dbt_production'
 version: '1.0.0'
 config-version: 2
 
@@ -18,8 +17,6 @@ test-paths: ["tests"]
 seed-paths: ["seeds"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
-
-target-path: "target"  # directory which will store compiled SQL files
 clean-targets:         # directories to be removed by `dbt clean`
   - "target"
   - "dbt_packages"
@@ -36,24 +33,40 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 
 models:
-  Edw_Snowflake_Production:
-      +transient: false
-      +on_schema_change: append_new_columns
-      +snowflake_warehouse: "{{ env_var('DBT_WAREHOUSE') }}"
-      
+  dbt_production:
+    +transient: false
+    +on_schema_change: append_new_columns
+    +snowflake_warehouse: "{{ env_var('DBT_WAREHOUSE') }}"
+
       # Applies to all files under models as per folder specification wise
-      LANDING-STAGING:
-        +materialized: table
-        +schema: "{{ env_var('DBT_LND_SCHEMA') }}"
+    Staging_Tables:
+      +materialized: table
+      +schema: "{{ env_var('DBT_LND_SCHEMA') }}"
 
-      STAGING-BRONZE:
-        +materialized: table
-        +schema: "{{ env_var('DBT_BRONZE_SCHEMA') }}"
+    Dup_Tables:
+      +materialized: table
+      +schema: "{{ env_var('DBT_BRONZE_SCHEMA') }}"
 
-      BRONZE-SILVER:
-        +materialized: table
-        +schema: "{{ env_var('DBT_SILVER_SCHEMA') }}"
+    Rej_Tables:
+      +materialized: table
+      +schema: "{{ env_var('DBT_BRONZE_SCHEMA') }}"
 
-      SILVER-GOLD:
-        +materialized: table
-        +schema: "{{ env_var('DBT_GOLD_SCHEMA') }}"
+    Silver_Tables:
+      +materialized: table
+      +schema: "{{ env_var('DBT_SILVER_SCHEMA') }}"
+
+    Gold_Tables:
+      +materialized: table
+      +schema: "{{ env_var('DBT_GOLD_SCHEMA') }}"
+
+snapshots:
+  dbt_production:
+    +transient: false
+    +snowflake_warehouse: "{{ env_var('DBT_WAREHOUSE') }}"
+
+    Bronze_Snapshots:
+      +schema: "{{ env_var('DBT_BRONZE_SCHEMA') }}"
+    +meta:
+      on_schema_change: fail
+flags:
+  require_generic_test_arguments_property: true
