@@ -1,7 +1,7 @@
 {{  config( 
             materialized='incremental',
-            unique_key='C_CUSTKEY',
-            incremental_strategy='merge'
+            incremental_strategy='append',
+            pre_hook="TRUNCATE TABLE {{ this }}"
          )
 }}
 select  *,
@@ -21,5 +21,5 @@ select  *,
         ) AS EDW_ROW_KEY_HASH,
         CURRENT_TIMESTAMP() AS EDW_CREATED_TIMESTAMP,
         CURRENT_TIMESTAMP() AS EDW_UPDATED_TIMESTAMP,
-        CURRENT_TIMESTAMP() AS EDW_LOAD_TIMESTAMP,
+        CURRENT_TIMESTAMP() AS EDW_LOAD_TIMESTAMP
 from {{ source('landing_table', 'LND_CUS_CUSTOMER')}}
