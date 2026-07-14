@@ -1,1 +1,1 @@
-SELECT current_database()
+SELECT current_database(),current_role()
