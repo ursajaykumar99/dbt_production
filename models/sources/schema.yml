@@ -1,0 +1,16 @@
+version: 2
+#Last Updated : 25-11-2025
+
+sources:
+  - name: landing_table
+    database: "{{ env_var('DBT_DATABASE') }}"
+    schema: "{{ env_var('DBT_LND_SCHEMA') }}"
+    tables: 
+        - name: LND_CUS_CUSTOMER
+        - name: LND_ITM_LINEITEM
+        - name: LND_GEO_NAATION
+        - name: LND_SLS_ORDERS
+        - name: LND_SLS_PART
+        - name: LND_SLS_PARTSUPP
+        - name: LND_GEO_REGIOIN
+        - name: LND_SLS_SUPPLIER

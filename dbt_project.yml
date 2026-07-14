@@ -2,7 +2,7 @@
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: 'my_new_project'
+name: 'Edw_Snowflake_Production'
 version: '1.0.0'
 config-version: 2
 
@@ -36,7 +36,24 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 
 models:
-  my_new_project:
-    # Applies to all files under models/example/
-    example:
-      +materialized: table
+  Edw_Snowflake_Production:
+      +transient: false
+      +on_schema_change: append_new_columns
+      +snowflake_warehouse: "{{ env_var('DBT_WAREHOUSE') }}"
+      
+      # Applies to all files under models as per folder specification wise
+      LANDING-STAGING:
+        +materialized: table
+        +schema: "{{ env_var('DBT_LND_SCHEMA') }}"
+
+      STAGING-BRONZE:
+        +materialized: table
+        +schema: "{{ env_var('DBT_BRONZE_SCHEMA') }}"
+
+      BRONZE-SILVER:
+        +materialized: table
+        +schema: "{{ env_var('DBT_SILVER_SCHEMA') }}"
+
+      SILVER-GOLD:
+        +materialized: table
+        +schema: "{{ env_var('DBT_GOLD_SCHEMA') }}"

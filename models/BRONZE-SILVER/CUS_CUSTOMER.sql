@@ -1,0 +1,1 @@
+select * from {{ ref('DBT_CUS_CUSTOMER') }}
