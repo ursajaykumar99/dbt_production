@@ -70,3 +70,9 @@ snapshots:
       on_schema_change: fail
 flags:
   require_generic_test_arguments_property: true
+  
+
+seeds:
+  dbt_production:
+    +schema: "{{ env_var('DBT_LND_SCHEMA') }}"
+    +quote_columns: false

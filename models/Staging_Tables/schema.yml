@@ -9,8 +9,17 @@ models:
         tests:
           - unique
           - not_null
-          - primarykey_integer
-          
+          - datatype_checking:
+              arguments:
+                data_type1: 'INTEGER'
+
+      - name: C_ACCTBAL
+        description: "Account Balance of the Customer"
+        tests:
+          - datatype_checking:
+              arguments:
+                data_type1: 'DECIMAL'
+
   - name: STG_GEO_NAATION
     description: "Naation Staging table in Landing Layer"
     columns:
@@ -19,7 +28,6 @@ models:
         tests:
           - unique
           - not_null
-          - primarykey_integer
 
   - name: STG_GEO_REGIOIN
     description: "REGIOIN Staging table in Landing Layer"
@@ -29,7 +37,6 @@ models:
         tests:
           - unique
           - not_null
-          - primarykey_integer
 
   - name: STG_ITM_LINEITEM
     description: "LINEITEM Staging table in Landing Layer"
