@@ -7,6 +7,12 @@ sources:
     schema: "{{ env_var('DBT_LND_SCHEMA') }}"
     tables: 
         - name: LND_CUS_CUSTOMER
+          columns:
+            - name: C_CUSTKEY
+              tests:
+                - unique
+                - not_null
+                
         - name: LND_ITM_LINEITEM
         - name: LND_GEO_NAATION
         - name: LND_SLS_ORDERS

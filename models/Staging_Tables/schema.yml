@@ -9,3 +9,57 @@ models:
         tests:
           - unique
           - not_null
+          - datatype_checking:
+              arguments:
+                data_type1: 'INTEGER'
+
+      - name: C_ACCTBAL
+        description: "Account Balance of the Customer"
+        tests:
+          - datatype_checking:
+              arguments:
+                data_type1: 'DECIMAL'
+
+  - name: STG_GEO_NAATION
+    description: "Naation Staging table in Landing Layer"
+    columns:
+      - name: N_NATIONKEY
+        description: "Primary Key of the Table"
+        tests:
+          - unique
+          - not_null
+
+  - name: STG_GEO_REGIOIN
+    description: "REGIOIN Staging table in Landing Layer"
+    columns:
+      - name: R_REGIONKEY
+        description: "Primary Key of the Table"
+        tests:
+          - unique
+          - not_null
+
+  - name: STG_ITM_LINEITEM
+    description: "LINEITEM Staging table in Landing Layer"
+    columns:
+      - name: L_ORDERKEY
+        description: "Not NUll Key of the Table"
+        tests:
+          - not_null
+      - name: L_PARTKEY
+        description: "Not NUll Key of the Table"
+        tests:
+          - not_null
+      - name: L_SUPPKEY
+        description: "Not NUll Key of the Table"
+        tests:
+          - not_null
+
+  - name: STG_SLS_ORDERS
+    description: "ORDERS Staging table in Landing Layer"
+    columns:
+      - name: O_ORDERKEY
+        description: "Primary Key of the Table"
+        tests:
+          - unique
+          - not_null
+
