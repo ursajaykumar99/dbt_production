@@ -1,0 +1,14 @@
+dbt_production:
+  target: prod
+  outputs:
+    prod:
+      type: snowflake
+      account: your_account_identifier
+      user: your_snowflake_user
+      password: "{{ env_var('DBT_SNOWFLAKE_PASSWORD') }}"
+      role: "DBT_ROLE"
+      database: "DBT_PRODUCTION"
+      warehouse: "DBT_WH"
+      schema: "PUBLIC"
+      threads: 8
+      client_session_keep_alive: false
